@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda FC Barcelona</title>
+  <link rel="stylesheet" href="bootstrap-5.3.7-dist/css/bootstrap.min.css">
+  <style>
+
+    /* Estilos generales */
+    body {
+      background-color: #1e1e2f;
+      color: #fff;
+    }
+
+/* Estilo de las tarjetas */
+.card {
+  background-color: #2a2a40;
+  color: white;
+  border: none;
+}
+
+.card-body {
+  background-color: #2a2a40;
+}
+
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+}
+
+
+
+/* Botones primarios con colores FCB */
+    .btn-primary {
+      background-color: #a50044;
+      border-color: #a50044;
+    }
+    .btn-primary:hover {
+      background-color: #6a0033;
+      border-color: #6a0033;
+    }
+
+/* Título de categorías */
+    .category-title {
+      background-color: #004d98;
+      padding: 10px;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+      background-color: #1c1c2b;
+    }
+    /* Posicionamiento del carrito */
+    .cart-icon {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+    }
+
+    /* Estilos para el menú lateral de categorías */
+    .list-group {
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    
+    .list-group-item {
+        background-color: #2a2a40;
+        color: white;
+        border-color: #3a3a5a;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .list-group-item:hover {
+        background-color: #004d98;
+        color: white;
+        cursor: pointer;
+    }
+    
+    .list-group-item:active {
+        background-color: #a50044;
+    }
+    
+    /* Opcional: resaltar la categoría activa */
+    .list-group-item.active {
+        background-color: #a50044;
+        border-color: #a50044;
+        font-weight: bold;
+        
+    }
+
+    .list-group-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    
+    <!-- Ícono carrito con contador -->
+    <div class="cart-icon">
+      <button class="btn btn-outline-dark position-relative">
+        🛒
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          1
+        </span>
+      </button>
+    </div>
+  </div>
+
+<!-- Fila principal con categorías y productos -->
+    <div class="row">
+
+<!-- Menú lateral de categorías -->
+      <div class="col-sm-3">
+        <div class="category-title">Categorías</div>
+        <ul class="list-group mt-2">
+            <li class="list-group-item active">Equipaciones</li>
+            <li class="list-group-item active">Accesorios</li>
+            <li class="list-group-item active">Souvenirs</li>
+            <li class="list-group-item active">Calzado</li>
+        </ul>
+      </div>
+      <div class="col-sm-9">
+
+    <!-- Productos -->
+        <h2>Equipaciones</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/equipaciones/uniformehombre.jpg" class="card-img-top" alt="Hombre local">
+              <div class="card-body">
+                <h5 class="card-title">Uniforme Local Hombre</h5>
+                <p class="card-text">Q399.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/equipaciones/uniformemujer.jpg" class="card-img-top" alt="Mujer visitante">
+              <div class="card-body">
+                <h5 class="card-title">Uniforme Visitante Mujer</h5>
+                <p class="card-text">Q389.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/equipaciones/uniformeniño.jpg" class="card-img-top" alt="Niño portero">
+              <div class="card-body">
+                <h5 class="card-title">Uniforme Portero Niño</h5>
+                <p class="card-text">Q299.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Accesorios</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/accesorios/gorro.jpg" class="card-img-top" alt="Gorro">
+              <div class="card-body">
+                <h5 class="card-title">Gorro Oficial</h5>
+                <p class="card-text">Q60.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/accesorios/mochila.jpg" class="card-img-top" alt="Mochila">
+              <div class="card-body">
+                <h5 class="card-title">Mochila FCB</h5>
+                <p class="card-text">Q180.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/accesorios/calcetines.jpg" class="card-img-top" alt="Calcetines">
+              <div class="card-body">
+                <h5 class="card-title">Calcetines Oficiales</h5>
+                <p class="card-text">Q40.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Souvenirs</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/souvenirs/balon.jpg" class="card-img-top" alt="Balón">
+              <div class="card-body">
+                <h5 class="card-title">Balón Oficial</h5>
+                <p class="card-text">Q150.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/souvenirs/bufanda.jpg" class="card-img-top" alt="Bufanda">
+              <div class="card-body">
+                <h5 class="card-title">Bufanda Azulgrana</h5>
+                <p class="card-text">Q60.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/souvenirs/llavero.jpg" class="card-img-top" alt="Llavero">
+              <div class="card-body">
+                <h5 class="card-title">Llavero Escudo FCB</h5>
+                <p class="card-text">Q25.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>Calzado</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/calzado/tacoshombre.jpg" class="card-img-top" alt="Tacos hombre">
+              <div class="card-body">
+                <h5 class="card-title">Tacos Hombre FCB</h5>
+                <p class="card-text">Q320.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/calzado/tacosmujer.jpg" class="card-img-top" alt="Tacos mujer">
+              <div class="card-body">
+                <h5 class="card-title">Tacos Mujer FCB</h5>
+                <p class="card-text">Q310.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <img src="images/calzado/tacosniño.jpg" class="card-img-top" alt="Tacos niño">
+              <div class="card-body">
+                <h5 class="card-title">Tacos Niño FCB</h5>
+                <p class="card-text">Q290.00</p>
+                <a href="#" class="btn btn-primary">Agregar al carrito</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Diseñado por: Douglas Pineda - 1890-22-2255 UMG Guastatoya 2025
+  </footer>
+
+  <script src="bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
