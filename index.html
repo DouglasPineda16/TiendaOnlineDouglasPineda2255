@@ -1,272 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda FC Barcelona</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda Online</title>
+
+  <!-- Bootstrap local -->
   <link rel="stylesheet" href="bootstrap-5.3.7-dist/css/bootstrap.min.css">
+
   <style>
-
     /* Estilos generales */
-    body {
-      background-color: #1e1e2f;
-      color: #fff;
-    }
+    body { background-color: #1e1e2f; color: #fff; }
 
-/* Estilo de las tarjetas */
-.card {
-  background-color: #2a2a40;
-  color: white;
-  border: none;
-}
+    /* Cards */
+    .card { background-color: #2a2a40; color: #fff; border: none; }
+    .card-body { background-color: #2a2a40; display: flex; flex-direction: column; }
+    .card-img-top { height: 300px; object-fit: cover; }
 
-.card-body {
-  background-color: #2a2a40;
-}
+    /* Botones primarios (tema FCB) */
+    .btn-primary { background-color: #a50044; border-color: #a50044; }
+    .btn-primary:hover { background-color: #6a0033; border-color: #6a0033; }
 
-.card-img-top {
-  height: 300px;
-  object-fit: cover;
-}
-
-
-
-/* Botones primarios con colores FCB */
-    .btn-primary {
-      background-color: #a50044;
-      border-color: #a50044;
-    }
-    .btn-primary:hover {
-      background-color: #6a0033;
-      border-color: #6a0033;
-    }
-
-/* Título de categorías */
-    .category-title {
-      background-color: #004d98;
-      padding: 10px;
-      color: white;
-      font-weight: bold;
-      border-radius: 5px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-      background-color: #1c1c2b;
-    }
-    /* Posicionamiento del carrito */
-    .cart-icon {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-    }
-
-    /* Estilos para el menú lateral de categorías */
-    .list-group {
-        border-radius: 5px;
-        overflow: hidden;
-    }
-    
+    /* Menú lateral de categorías */
+    .category-title { background-color: #004d98; padding: 10px; color: #fff; font-weight: bold; border-radius: 5px; }
+    .list-group { border-radius: 5px; overflow: hidden; }
     .list-group-item {
-        background-color: #2a2a40;
-        color: white;
-        border-color: #3a3a5a;
-        padding: 12px 15px;
-        transition: all 0.3s ease;
+      background-color: #2a2a40; color: #fff; border-color: #3a3a5a;
+      padding: 12px 15px; transition: all .3s ease;
     }
-    
     .list-group-item:hover {
-        background-color: #004d98;
-        color: white;
-        cursor: pointer;
+      background-color: #004d98; color: #fff; cursor: pointer;
+      transform: translateX(5px); box-shadow: 0 4px 8px rgba(0,0,0,.2);
     }
-    
-    .list-group-item:active {
-        background-color: #a50044;
-    }
-    
-    /* Opcional: resaltar la categoría activa */
-    .list-group-item.active {
-        background-color: #a50044;
-        border-color: #a50044;
-        font-weight: bold;
-        
-    }
+    .list-group-item.active { background-color: #a50044; border-color: #a50044; font-weight: bold; }
 
-    .list-group-item:hover {
-    transform: translateX(5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+    /* Carrito (arriba a la derecha) */
+    .cart-icon { position: absolute; top: 20px; right: 30px; z-index: 2; }
 
+    /* Footer */
+    footer { text-align: center; padding: 20px; margin-top: 40px; background-color: #1c1c2b; }
   </style>
 </head>
 <body>
+
+  <!-- Carrito con contador -->
   <div class="container mt-4">
-    
-    <!-- Ícono carrito con contador -->
     <div class="cart-icon">
-      <button class="btn btn-outline-dark position-relative">
+      <button class="btn btn-outline-light position-relative">
         🛒
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          1
-        </span>
+        <span id="contadorCarrito"
+              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
       </button>
     </div>
   </div>
 
-<!-- Fila principal con categorías y productos -->
+  <!-- Layout principal -->
+  <div class="container">
     <div class="row">
 
-<!-- Menú lateral de categorías -->
+      <!-- Categorías (dinámicas) -->
       <div class="col-sm-3">
         <div class="category-title">Categorías</div>
-        <ul class="list-group mt-2">
-            <li class="list-group-item active">Equipaciones</li>
-            <li class="list-group-item active">Accesorios</li>
-            <li class="list-group-item active">Souvenirs</li>
-            <li class="list-group-item active">Calzado</li>
+        <ul class="list-group mt-2" id="listaCategorias">
+          <!-- JS inyecta aquí: "Todos" + categorías únicas de la API (si existen) -->
         </ul>
       </div>
+
+      <!-- Productos (dinámico) -->
       <div class="col-sm-9">
-
-    <!-- Productos -->
-        <h2>Equipaciones</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Equipaciones/uniformehombre.jpg" class="card-img-top" alt="Hombre local">
-              <div class="card-body">
-                <h5 class="card-title">Uniforme Local Hombre</h5>
-                <p class="card-text">Q399.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Equipaciones/uniformemujer.jpg" class="card-img-top" alt="Mujer visitante">
-              <div class="card-body">
-                <h5 class="card-title">Uniforme Visitante Mujer</h5>
-                <p class="card-text">Q389.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Equipaciones/uniformeniño.jpg" class="card-img-top" alt="Niño portero">
-              <div class="card-body">
-                <h5 class="card-title">Uniforme Portero Niño</h5>
-                <p class="card-text">Q299.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <h2>Accesorios</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Accesorios/gorro.jpg" class="card-img-top" alt="Gorro">
-              <div class="card-body">
-                <h5 class="card-title">Gorro Oficial</h5>
-                <p class="card-text">Q60.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Accesorios/mochila.jpg" class="card-img-top" alt="Mochila">
-              <div class="card-body">
-                <h5 class="card-title">Mochila FCB</h5>
-                <p class="card-text">Q180.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Accesorios/calcetines.jpg" class="card-img-top" alt="Calcetines">
-              <div class="card-body">
-                <h5 class="card-title">Calcetines Oficiales</h5>
-                <p class="card-text">Q40.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <h2>Souvenirs</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Souvenirs/balon.jpg" class="card-img-top" alt="Balón">
-              <div class="card-body">
-                <h5 class="card-title">Balón Oficial</h5>
-                <p class="card-text">Q150.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Souvenirs/bufanda.jpg" class="card-img-top" alt="Bufanda">
-              <div class="card-body">
-                <h5 class="card-title">Bufanda Azulgrana</h5>
-                <p class="card-text">Q60.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Souvenirs/llavero.jpg" class="card-img-top" alt="Llavero">
-              <div class="card-body">
-                <h5 class="card-title">Llavero Escudo FCB</h5>
-                <p class="card-text">Q25.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <h2>Calzado</h2>
-        <div class="row">
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Calzado/tacoshombre.jpg" class="card-img-top" alt="Tacos hombre">
-              <div class="card-body">
-                <h5 class="card-title">Tacos Hombre FCB</h5>
-                <p class="card-text">Q320.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Calzado/tacosmujer.jpg" class="card-img-top" alt="Tacos mujer">
-              <div class="card-body">
-                <h5 class="card-title">Tacos Mujer FCB</h5>
-                <p class="card-text">Q310.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="card">
-              <img src="images/Calzado/tacosniño.jpg" class="card-img-top" alt="Tacos niño">
-              <div class="card-body">
-                <h5 class="card-title">Tacos Niño FCB</h5>
-                <p class="card-text">Q290.00</p>
-                <a href="#" class="btn btn-primary">Agregar al carrito</a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="row" id="contenedorProductos"><!-- JS inserta las cards aquí --></div>
       </div>
+
     </div>
   </div>
 
@@ -274,7 +78,154 @@
     Diseñado por: Douglas Pineda - 1890-22-2255 UMG Guastatoya 2025
   </footer>
 
+  <!-- Bootstrap bundle -->
   <script src="bootstrap-5.3.7-dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Fetch + categorías dinámicas + filtro -->
+  <script>
+    const API_URL = "https://backcvbgtmdesa.azurewebsites.net/api/productos";
+
+    const contenedor = document.getElementById("contenedorProductos");
+    const ulCategorias = document.getElementById("listaCategorias");
+    const badgeCarrito = document.getElementById("contadorCarrito");
+
+    // Guardaremos todo para filtrar sin volver a llamar al backend
+    let productosOriginales = [];
+    let categoriaActiva = "Todos";
+    let carrito = 0;
+
+    // Posibles nombres de campo para categoría (por si la API varía)
+    const posiblesCamposCategoria = ["Categoria", "Categoría", "category", "Category", "Tipo", "TipoCategoria"];
+
+    function obtenerCategoriaDeProducto(p) {
+      for (const key of posiblesCamposCategoria) {
+        if (p[key] != null && String(p[key]).trim() !== "") return String(p[key]).trim();
+      }
+      // Si la API no trae categoría, caemos a "Todos"
+      return "Todos";
+    }
+
+    function mostrarCargando() {
+      contenedor.innerHTML = `
+        <div class="col-12 text-center my-5">
+          <div class="spinner-border text-light" role="status"></div>
+          <p class="mt-3">Cargando productos...</p>
+        </div>`;
+    }
+
+    function renderProductos(productos) {
+      contenedor.innerHTML = "";
+      if (!productos.length) {
+        contenedor.innerHTML = `
+          <div class="col-12">
+            <div class="alert alert-warning">No hay productos para esta categoría.</div>
+          </div>`;
+        return;
+      }
+
+      productos.forEach(producto => {
+        const enOferta = producto.EnOferta === true && producto.PrecioOferta != null;
+        const precioHTML = enOferta
+          ? `
+            <span class="text-danger fw-bold">Q${parseFloat(producto.PrecioOferta).toFixed(2)}</span>
+            <small class="text-muted text-decoration-line-through ms-2">Q${parseFloat(producto.Precio).toFixed(2)}</small>`
+          : `<span class="fw-bold">Q${parseFloat(producto.Precio).toFixed(2)}</span>`;
+
+        const col = document.createElement("div");
+        col.className = "col-sm-12 col-md-4 mb-4";
+
+        col.innerHTML = `
+          <div class="card h-100 d-flex flex-column">
+            <img src="${producto.Imagen}" class="card-img-top img-fluid" alt="${producto.Nombre}">
+            <div class="card-body">
+              <h5 class="card-title">${producto.Nombre}</h5>
+              <p class="card-text">${producto.Descripcion ?? ""}</p>
+              <p class="mb-3">${precioHTML}</p>
+              <a href="#" class="btn btn-primary mt-auto agregarCarrito">Agregar al carrito</a>
+            </div>
+          </div>
+        `;
+
+        col.querySelector(".agregarCarrito").addEventListener("click", (e) => {
+          e.preventDefault();
+          carrito++;
+          badgeCarrito.textContent = carrito;
+        });
+
+        contenedor.appendChild(col);
+      });
+    }
+
+    function construirCategorias(productos) {
+      ulCategorias.innerHTML = "";
+
+      // Siempre agregamos "Todos"
+      const liTodos = document.createElement("li");
+      liTodos.className = "list-group-item active";
+      liTodos.textContent = "Todos";
+      liTodos.addEventListener("click", () => setCategoriaActiva("Todos"));
+      ulCategorias.appendChild(liTodos);
+
+      // Extraemos valores únicos de categoría (si existen)
+      const setCategorias = new Set();
+      productos.forEach(p => setCategorias.add(obtenerCategoriaDeProducto(p)));
+
+      // Quitamos "Todos" del set para no duplicarlo
+      setCategorias.delete("Todos");
+
+      // Creamos elementos <li> por cada categoría existente
+      for (const cat of setCategorias) {
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.textContent = cat;
+        li.addEventListener("click", () => setCategoriaActiva(cat));
+        ulCategorias.appendChild(li);
+      }
+    }
+
+    function setCategoriaActiva(cat) {
+      categoriaActiva = cat;
+
+      // Actualizamos la clase .active en la lista
+      Array.from(ulCategorias.children).forEach(li => {
+        li.classList.toggle("active", li.textContent.trim() === categoriaActiva);
+      });
+
+      // Filtramos
+      if (categoriaActiva === "Todos") {
+        renderProductos(productosOriginales);
+      } else {
+        const filtrados = productosOriginales.filter(p => obtenerCategoriaDeProducto(p) === categoriaActiva);
+        renderProductos(filtrados);
+      }
+    }
+
+    async function cargarProductos() {
+      mostrarCargando();
+      try {
+        const resp = await fetch(API_URL);
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        const productos = await resp.json();
+
+        productosOriginales = Array.isArray(productos) ? productos : [];
+        construirCategorias(productosOriginales);
+        setCategoriaActiva("Todos"); // Esto ya llama a renderProductos()
+      } catch (error) {
+        console.error("Error al cargar productos:", error);
+        contenedor.innerHTML = `
+          <div class="col-12">
+            <div class="alert alert-danger">
+              No se pudieron cargar los productos. Intenta nuevamente más tarde.
+            </div>
+          </div>`;
+        // Construye al menos el menú con "Todos"
+        ulCategorias.innerHTML = `
+          <li class="list-group-item active">Todos</li>
+        `;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", cargarProductos);
+  </script>
 </body>
 </html>
-
